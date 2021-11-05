@@ -7,7 +7,7 @@ import sqlite3
 import sys
 import io
 
-import cluster as cluster
+# import cluster as cluster
 import folium
 from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QPushButton, QComboBox, QTextEdit, \
     QLabel, QCheckBox
@@ -72,50 +72,55 @@ class Map(QWidget):
 
         conection = sqlite3.connect('hakaton.sqlite')
         cur = conection.cursor()
-#         problems = cur.execute(f"""SELECT ProblemId from Main
-# where SecondaryCriterionId = (
-# SELECT id from SecondaryCriterion
-# where Name = '{self.txt}')""").fetchall()
         streets = {i[1]: i[0] for i in cur.execute("""SELECT * from streets""").fetchall()}
         my_list = []
-        # problems = [i[0] for i in problems]
-        # print(problems)
         if self.stat:
             problems = cur.execute(f"""select * from problems""")
         elif self.txt == 'Все':
-            problems = cur.execute(f'''SELECT Name from SecondaryCriterion
-WHERE MainCriterionId = (
-select id from MainCriterion
-WHERE Name = '{self.more}')''').fetchall()
+            problems = cur.execute(
+                f'''SELECT Name from SecondaryCriterion
+                        WHERE MainCriterionId = (
+                        select id from MainCriterion
+                            WHERE Name = '{self.more}')'''
+            ).fetchall()
             print(self.more)
             print(problems)
             my_list = []
             for hj in problems:
-                k = cur.execute(f"""SELECT ProblemId from Main
-            where SecondaryCriterionId = (
-            SELECT id from SecondaryCriterion
-            where Name = '{hj[0]}')""").fetchall()
+                k = cur.execute(
+                    f"""SELECT ProblemId from Main
+                            where SecondaryCriterionId = (
+                            SELECT id from SecondaryCriterion
+                                where Name = '{hj[0]}')"""
+                ).fetchall()
                 for i in k:
-                    my_list.append(cur.execute(f"""select * from problems
-                where id = {i[0]}""").fetchall()[0])
+                    my_list.append(cur.execute(
+                        f"""select * from problems
+                                where id = {i[0]}"""
+                    ).fetchall()[0])
                 problems = my_list
         else:
-            problems = cur.execute(f"""SELECT ProblemId from Main
-            where SecondaryCriterionId = (
-            SELECT id from SecondaryCriterion
-            where Name = '{self.txt}')""").fetchall()
+            problems = cur.execute(
+                f"""SELECT ProblemId from Main
+                        where SecondaryCriterionId = (
+                        SELECT id from SecondaryCriterion
+                            where Name = '{self.txt}')"""
+            ).fetchall()
             for i in problems:
-                my_list.append(cur.execute(f"""select * from problems
-    where id = {i[0]}""").fetchall()[0])
+                my_list.append(cur.execute(
+                    f"""select * from problems
+                            where id = {i[0]}"""
+                ).fetchall()[0])
 
             problems = my_list
         # m = folium.Map([56.135690, 47.245953], zoom_start=13)
         html = open(r'./htmls/1.html', mode='r', encoding='UTF-8').read()
 
-        cluster = MarkerCluster(name='cluster',
-                                popups='123',
-                                show=False,
-                                )
+        cluster = MarkerCluster(
+            name='cluster',
+            popups='123',
+            show=False,
+        )
         n = 0
         for i in problems:
             n += 1
@@ -182,10 +187,12 @@ class Example(QWidget):
         print(problems[0])
         count = 2
         for i in range(len(problems)):
-            k = cur.execute(f"""SELECT * from SecondaryCriterion
-    WHERE MainCriterionId = (
-SELECT id from MainCriterion
-    WHERE Name = '{problems[i]}')""").fetchall()
+            k = cur.execute(
+                f"""SELECT * from SecondaryCriterion
+                        WHERE MainCriterionId = (
+                        SELECT id from MainCriterion
+                            WHERE Name = '{problems[i]}')"""
+            ).fetchall()
             count += 1
             k = [mk[-1] for mk in k]
             self.my_dict[problems[i]] = []

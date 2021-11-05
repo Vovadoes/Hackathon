@@ -16,8 +16,3 @@ def find_location(coordinates: str = "56.140073, 47.174707") -> str:
     location = geolocator.reverse(coordinates)
     return location.address
 
-conection = sqlite3.connect('hahaton.sqlite')
-cur = conection.cursor()
-problems = cur.execute("""SELECT * from streets""").fetchall()
-for i in problems:
-    print(find_coordinates('Chuvash Republic ' + i[0]))

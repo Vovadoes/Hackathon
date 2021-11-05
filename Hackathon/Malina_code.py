@@ -6,9 +6,11 @@ import spacy
 import pymorphy2
 from geopy.geocoders import Nominatim
 from typing import Tuple
+from Maps import find_coordinates
 from settings import unpleasant_smell, roads_and_transport, yard, landscaping
 
 from Create_db import start
+
 
 def ssdd(d, s):
     res = []
@@ -47,8 +49,7 @@ def resulation(con):
 
 def pre_resulation(content):
     nlp = spacy.load('en_core_web_sm')  # python -m spacy download en_core_web_sm
-    content = content.lower()
-    doc = nlp(content)
+    doc = nlp(content := content.lower())
     sentences = []
     morph = pymorphy2.MorphAnalyzer()
     for sent in doc.sents:
@@ -65,29 +66,6 @@ def pre_resulation(content):
             q.append(i)
     # print(sentences)
     return q
-
-
-s = pre_resulation('Нужны дополнительные парковочные места.')
-print(s)
-resulation(s)
-
-
-# @title Текст заголовка по умолчанию
-def find_coordinates(location: str = "улица Алексея Талвира, 20"):
-    # address we need to geocode
-    loc = location
-
-    # making an instance of Nominatim class
-    geolocator = Nominatim(user_agent="my_request")
-
-    # applying geocode method to get the location
-    location = geolocator.geocode(loc)
-    # print(location)
-    # printing address and coordinates
-    if location:
-        # print((location.latitude, location.longitude))
-        return (location.latitude, location.longitude)
-    return None
 
 
 def main(input_way, output='output.xlsx'):
@@ -108,15 +86,9 @@ def main(input_way, output='output.xlsx'):
             coord = find_coordinates(
                 'Чувашская республика ' + ', '.join([al['Адрес обращения'], al['Дом']]))
             if coord:
-                res = list(coord) + [al['Адрес обращения'], al['Дом'], str(al['Дата'])[:-7]] + [a1,
-                                                                                                a2] + [
-                          al['текст обращения']]
+                res = list(coord) + [al['Адрес обращения'], al['Дом'],
+                                     str(al['Дата'])[:-7]] + [a1, a2] + [al['текст обращения']]
                 print(res)
                 df2.loc[len(df2), :] = res
-        # (['дороги и транспорт'], ['дорога'])
-    # for i in qq:
-    #  df2[i] = []
-    # df2.loc[len(df2), :] = ['1', '1', '1', '1', '1', '1', '1']
     df2.to_excel(output)
     start(output)
-
