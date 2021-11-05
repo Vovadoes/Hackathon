@@ -44,5 +44,5 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.label.setText(_translate("MainWindow", "Please enter the path to the file"))
+        self.label.setText(_translate("MainWindow", "Пожалуйста, введите путь к файлу"))
         self.pushButton.setText(_translate("MainWindow", "Загрузить"))

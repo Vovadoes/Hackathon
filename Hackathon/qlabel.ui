@@ -29,7 +29,7 @@
      </font>
     </property>
     <property name="text">
-     <string>Please enter the path to the file</string>
+     <string>Пожалуйста, введите путь к файлу</string>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton">

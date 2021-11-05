@@ -1,18 +1,13 @@
-import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
-import seaborn as sns
 import spacy
 import pymorphy2
-from geopy.geocoders import Nominatim
-from typing import Tuple
 from Maps import find_coordinates
-from settings import unpleasant_smell, roads_and_transport, yard, landscaping
+from settings import main_lst
 
 from Create_db import start
 
 
-def ssdd(d, s):
+def fun(d, s):
     res = []
     for k, v in d.items():
         if s in v:
@@ -23,27 +18,12 @@ def ssdd(d, s):
 def resulation(con):
     name1 = []
     name2 = []
-    # ['ремонт', 'третий']
     for i in con:
-        s = ssdd(unpleasant_smell, i)
-        if len(s) != 0:
-            name1.append('неприятный запах')
-            name2 += s
-
-        s = ssdd(roads_and_transport, i)
-        if len(s) != 0:
-            name1.append('дороги и транспорт')
-            name2 += s
-
-        s = ssdd(yard, i)
-        if len(s) != 0:
-            name1.append('содержание двора')
-            name2 += s
-
-        s = ssdd(landscaping, i)
-        if len(s) != 0:
-            name1.append('благоустройство')
-            name2 += s
+        for j in main_lst:
+            s = fun(main_lst[j], i)
+            if len(s) != 0:
+                name1.append(j)
+                name2 += s
     return list(set(name1)), list(set(name2))
 
 
@@ -68,7 +48,7 @@ def pre_resulation(content):
     return q
 
 
-def main(input_way, output='output.xlsx'):
+def main(input_way, output='output.xlsx', fun_end=lambda: None, args_fun_end=()):
     df = pd.read_excel(input_way)
     # df.drop_duplicates(subset='текст обращения', inplace = True)
     df2 = pd.DataFrame()
@@ -76,7 +56,6 @@ def main(input_way, output='output.xlsx'):
     for i in qq:
         df2[i] = []
     for i in range(len(df)):
-        print(i)
         al = df.loc[i, :]
         content = al['текст обращения'].lower()
         arr = resulation(pre_resulation(content))
@@ -88,7 +67,8 @@ def main(input_way, output='output.xlsx'):
             if coord:
                 res = list(coord) + [al['Адрес обращения'], al['Дом'],
                                      str(al['Дата'])[:-7]] + [a1, a2] + [al['текст обращения']]
-                print(res)
+                print(f'{i=}, {res=}')
                 df2.loc[len(df2), :] = res
     df2.to_excel(output)
     start(output)
+    fun_end(*args_fun_end)

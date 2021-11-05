@@ -22,12 +22,18 @@ class MyWidget(QMainWindow, Ui_MainWindow):
             self.label.setText('Ошибка. Загрузите пожалуйста файл с расширением xlsx!')
             return None
 
-        self.label.setText('The download is in progress wait')
+        self.label.setText('Загрузка продолжается подождите')
+
         try:
-            th = Thread(target=main, args=(self.way_load,))
+            th = Thread(
+                target=main, args=(
+                    self.way_load,
+                    'output.xlsx',
+                    lambda: self.label.setText(
+                        'Файл создается и помещается в корневой каталог проекта.')
+                )
+            )
             th.start()
-            th.join()
-            self.label.setText('The file is generated and placed in the root of the project.')
         except Exception as error:
             print(error.__class__.__name__)
             self.label.setText('Error function')
