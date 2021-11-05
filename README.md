@@ -14,4 +14,10 @@ $ pip install -r requirements.txt
 ```
 
 ### Python interpreter
-Версия [Python](https://www.python.org/downloads/release/python-397/)
+Минимально обходимая версия [Python](https://www.python.org/downloads/release/python-397/).
+
+### Запуск
+Для запуска перейдите в папку [Hackathon]() и выполните следующую команду:
+```
+python main.py
+```
