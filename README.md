@@ -3,7 +3,7 @@
 ## Красткое описание
 Эта программа позволит увидеть на карте концентрацию проблем в регионе.
 ### Ввод
-На ввод программе дается таблица подобная этой. Пример таблицы вы можете найти [тут](https://github.com/Vovadoes/Hackathon/tree/main/example/input/table).
+На ввод программе дается таблица подобная этой. Пример таблицы вы можете найти [тут](./example/input/table).
 Адрес обращения	| Дом | Дата | текст обращения
 --- | --- | --- | ---
 улица Советская | 50А | 05.06.2021 22:08 | Тротуар возле рощи
@@ -15,7 +15,7 @@
  Для того чтобы установить проект нужно установить библиотеки и иметь версию python 3.9.7+
 
  ### Установка библиотек
- В директории проекта в папке [Hackathon](https://github.com/Vovadoes/Hackathon/tree/main/Hackathon) лежит текстовый файл [requirements.txt](https://github.com/Vovadoes/Hackathon/blob/main/Hackathon/requirements.txt). Все библиотеки из этого файла можно установить с помощью следующей конструкции: 
+ В директории проекта в папке [Hackathon](./Hackathon) лежит текстовый файл [requirements.txt](./Hackathon/requirements.txt). Все библиотеки из этого файла можно установить с помощью следующей конструкции: 
 ```
 $ pip install -r requirements.txt
 ```
@@ -28,7 +28,7 @@ python -m spacy download en_core_web_sm
 Минимально обходимая версия [Python](https://www.python.org/downloads/release/python-397/).
 
 ### Запуск
-Для запуска перейдите в папку [Hackathon]() и выполните следующую команду:
+Для запуска перейдите в папку [Hackathon](./Hackathon) и выполните следующую команду:
 ```
 python main.py
 ```
