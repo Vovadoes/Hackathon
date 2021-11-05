@@ -10,7 +10,8 @@
  ### Установка библиотек
  В директории проекта в папке [Hackathon]() лежит текстовый файл [requirements.txt](). Все библиотеки из этого файла можно установить с помощью следующей конструкции: 
 ```
-pip install -r requirements.txt
+$ pip install -r requirements.txt
 ```
 
 ### Python interpreter
+Версия [Python](https://www.python.org/downloads/release/python-397/)
