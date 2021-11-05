@@ -14,7 +14,7 @@ from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QPushButton, QCo
 from PyQt5.QtWebEngineWidgets import QWebEngineView
 from folium.plugins import MarkerCluster
 
-from mywindow import Mywindow
+from mywindow import MyWidget
 
 
 def filt_s(a: str = '', lst=None):
@@ -253,7 +253,7 @@ class Example(QWidget):
         self.k.show()
 
     def load_table(self):
-        self.mywindow = Mywindow()
+        self.mywindow = MyWidget()
         self.mywindow.show()
 
 

@@ -23,8 +23,13 @@
       <height>100</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
     <property name="text">
-     <string>TextLabel</string>
+     <string>Please enter the path to the file</string>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton">
@@ -36,8 +41,13 @@
       <height>50</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
     <property name="text">
-     <string>PushButton</string>
+     <string>Загрузить</string>
     </property>
    </widget>
   </widget>
@@ -47,7 +57,7 @@
      <x>0</x>
      <y>0</y>
      <width>600</width>
-     <height>26</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>
