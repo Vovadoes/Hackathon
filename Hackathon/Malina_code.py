@@ -1,7 +1,7 @@
 import pandas as pd
 import spacy
 import pymorphy2
-from Maps import find_coordinates
+from CoordinatesAddress import find_coordinates
 from settings import main_lst
 
 from Create_db import start

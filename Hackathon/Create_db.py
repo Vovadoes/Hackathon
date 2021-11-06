@@ -1,7 +1,7 @@
 import sqlite3
 from pprint import pprint
 import pandas
-from settings import main_dct
+from settings import main_dct, way_db
 
 
 def fun(conn, cur, name_table='streets', where="street = 'улица Бичурина'",
@@ -27,7 +27,7 @@ def start(way):
     print('start create db')
     pn = pandas.read_excel(way)
 
-    conn = sqlite3.connect('hakaton.sqlite')
+    conn = sqlite3.connect(way_db)
     cur = conn.cursor()
 
     for i in range(len(pn)):

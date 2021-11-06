@@ -28,7 +28,7 @@ class MyWidget(QMainWindow, Ui_MainWindow):
             th = Thread(
                 target=main, args=(
                     self.way_load,
-                    'output.xlsx',
+                    './output/table/output.xlsx',
                     lambda: self.label.setText(
                         'Файл создается и помещается в корневой каталог проекта.')
                 )
