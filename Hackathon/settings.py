@@ -57,4 +57,4 @@ main_dct = {'благоустройство': ['банкомат',
                                  'спортивная площадка',
                                  'электроника дома']}
 
-way_db = './output/dbhakaton.sqlite'
+way_db = './output/db/hakaton.sqlite'

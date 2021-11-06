@@ -8,6 +8,7 @@ def fun(conn, cur, name_table='streets', where="street = 'улица Бичур�
         create_new=('street', "'улица Бичурина'")):
     request = f"""SELECT id FROM {name_table}
             WHERE {where}"""
+    # print(request)
     # pprint(f'{request=}')
     result = cur.execute(request).fetchall()  # SELECT
     # pprint(f'{result=}')
@@ -57,13 +58,16 @@ def start(way):
                                                ('Name, MainCriterionId',
                                                 f"'{SecondaryCriterion}', {MainCriterionId}"))
 
-                    request = f"""INSERT INTO Main(ProblemId, SecondaryCriterionId) 
-                               VALUES({ProblemId}, {SecondaryCriterionId}); """
+                    req = fun(conn, cur, 'Main',
+                              f"ProblemId = {ProblemId} AND SecondaryCriterionId = {SecondaryCriterionId}",
+                              ('ProblemId, SecondaryCriterionId',
+                               f"{ProblemId}, {SecondaryCriterionId}"))
+                    # request = f"""INSERT INTO Main(ProblemId, SecondaryCriterionId)
+                    #            VALUES({ProblemId}, {SecondaryCriterionId}); """
 
                     # pprint(request)
-                    cur.execute(request)
+                    # cur.execute(request)
                     conn.commit()
     print('end create db')
-
 
 # start('output.xlsx')
