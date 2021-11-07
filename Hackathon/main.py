@@ -5,6 +5,7 @@ from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QComboBox, QText
     QCheckBox
 
 from settings import way_db
+from Create_db import default_db
 
 from mywindow import MyWidget
 from Map import Map
@@ -39,6 +40,7 @@ class Example(QWidget):
 
     def __init__(self):
         super().__init__()
+        default_db()
         self.initUI()
 
     def initUI(self):

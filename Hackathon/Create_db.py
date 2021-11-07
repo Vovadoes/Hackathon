@@ -2,7 +2,8 @@ import sqlite3
 from pprint import pprint
 import pandas
 from settings import main_dct, way_db
-
+import os
+import shutil
 
 def fun(conn, cur, name_table='streets', where="street = 'улица Бичурина'",
         create_new=('street', "'улица Бичурина'")):
@@ -71,3 +72,8 @@ def start(way):
     print('end create db')
 
 # start('output.xlsx')
+
+
+def default_db():
+    if not os.path.exists(way_db):
+        shutil.copyfile("./default/hakaton.sqlite", way_db)
