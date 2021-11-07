@@ -44,7 +44,7 @@ class Example(QWidget):
         self.initUI()
 
     def initUI(self):
-        self.setGeometry(300, 300, 300, 375)
+        self.setGeometry(300, 300, 300, 300)
         self.setWindowTitle('Хаккатон задание')
 
         self.btn = QPushButton('Показать карту', self)
@@ -54,7 +54,7 @@ class Example(QWidget):
 
         self.btn = QPushButton('Загрузить таблицу', self)
         self.btn.resize(200, 30)
-        self.btn.move(20, 325)
+        self.btn.move(20, 230)
         self.btn.clicked.connect(self.load_table)
 
         self.gg = QComboBox(self)
@@ -101,9 +101,10 @@ class Example(QWidget):
             self.hh.addItems(self.my_dict[self.text])
         self.hh.activated[str].connect(self.on)
 
-        self.push = QPushButton('Сообщить о проблеме', self)
-        self.push.clicked.connect(self.error)
-        self.push.move(20, 250)
+        # self.push = QPushButton('Сообщить о проблеме', self)
+        # self.push.clicked.connect(self.error)
+        # self.button.resize(200, 30)
+        # self.button.move(20, 325)
         self.textt = 'Все'
         self.status = False
 
@@ -121,12 +122,6 @@ class Example(QWidget):
         self.hh.clear()
         self.hh.addItems(self.my_dict[text])
         self.text = text
-
-        self.button = QPushButton(self)
-        self.button.setText('Сообщить о проблеме')
-        self.button.resize(200, 30)
-        self.button.move(20, 230)
-        self.button.clicked.connect(self.error)
 
     def error(self):
         self.gg = Error()
