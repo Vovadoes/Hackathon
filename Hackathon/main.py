@@ -1,8 +1,6 @@
-# from PyQt5.QtWidgets import QApplication, QWidget
 import sqlite3
 import sys
 
-# import cluster as cluster
 from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QComboBox, QTextEdit, QLabel, \
     QCheckBox
 
