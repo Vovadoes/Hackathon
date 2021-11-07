@@ -3,7 +3,8 @@ import os
 from threading import Thread
 
 from PyQt5.QtWidgets import QFileDialog, QMainWindow
-from Malina_code import main
+from Malina_code import Recognition
+from Create_db import start
 from qlabel import Ui_MainWindow
 
 
@@ -23,17 +24,36 @@ class MyWidget(QMainWindow, Ui_MainWindow):
             return None
 
         self.label.setText('Загрузка продолжается подождите')
-
         try:
             th = Thread(
-                target=main, args=(
+                target=self.choosing_downloads,
+                args=(
                     self.way_load,
-                    './output/table/output.xlsx',
-                    lambda: self.label.setText(
-                        'Файл создается и помещается в корневой каталог проекта.')
+                    self.checkBox.isChecked(),
+                    self.checkBox_2.isChecked()
                 )
             )
             th.start()
         except Exception as error:
             print(error.__class__.__name__)
-            self.label.setText('Error function')
+            self.label.setText('Ошибка')
+
+    def progress_check(self, num, len_max):
+        self.label.setText(f'Создание базы данных {num + 1} / {len_max}')
+
+    def choosing_downloads(self, way, create_table, create_db):
+        self.label.setText('Создание таблицы')
+        print(f"{create_table=}, {create_db=}")
+        if create_table:
+            way = Recognition(
+                way,
+                './output/table/output.xlsx'
+            ).main(
+                self.progress_check,
+            )
+        if create_db:
+            self.label.setText('Создание базы данных')
+            start(way)
+            self.label.setText('База данных создана')
+
+        self.label.setText('Готово.')

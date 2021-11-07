@@ -48,27 +48,35 @@ def pre_resulation(content):
     return q
 
 
-def main(input_way, output='output.xlsx', fun_end=lambda: None, args_fun_end=()):
-    df = pd.read_excel(input_way)
-    # df.drop_duplicates(subset='текст обращения', inplace = True)
-    df2 = pd.DataFrame()
-    qq = ['коорд1', 'коорд2', 'улица', 'дом', 'дата', 'глав_параметр', 'под_параметр', 'проблема']
-    for i in qq:
-        df2[i] = []
-    for i in range(len(df)):
-        al = df.loc[i, :]
-        content = al['текст обращения'].lower()
-        arr = resulation(pre_resulation(content))
-        a1 = ', '.join(arr[0])
-        a2 = ', '.join(arr[1])
-        if len(arr[0]) != 0:
-            coord = find_coordinates(
-                'Чувашская республика ' + ', '.join([al['Адрес обращения'], al['Дом']]))
-            if coord:
-                res = list(coord) + [al['Адрес обращения'], al['Дом'],
-                                     str(al['Дата'])[:-7]] + [a1, a2] + [al['текст обращения']]
-                print(f'{i=}, {res=}')
-                df2.loc[len(df2), :] = res
-    df2.to_excel(output)
-    start(output)
-    fun_end(*args_fun_end)
+class Recognition:
+    def __init__(self, input_way, output='output.xlsx'):
+        self.input_way = input_way
+        self.output = output
+        self.len_df = 0
+
+    def main(self, fun=lambda j, i, len_df: None):
+        df = pd.read_excel(self.input_way)
+        # df.drop_duplicates(subset='текст обращения', inplace = True)
+        df2 = pd.DataFrame()
+        qq = ['коорд1', 'коорд2', 'улица', 'дом', 'дата', 'глав_параметр', 'под_параметр',
+              'проблема']
+        for i in qq:
+            df2[i] = []
+        self.len_df = len(df)
+        for i in range(self.len_df):
+            al = df.loc[i, :]
+            content = al['текст обращения'].lower()
+            arr = resulation(pre_resulation(content))
+            a1 = ', '.join(arr[0])
+            a2 = ', '.join(arr[1])
+            if len(arr[0]) != 0:
+                coord = find_coordinates(
+                    'Чувашская республика ' + ', '.join([al['Адрес обращения'], al['Дом']]))
+                if coord:
+                    res = list(coord) + [al['Адрес обращения'], al['Дом'],
+                                         str(al['Дата'])[:-7]] + [a1, a2] + [al['текст обращения']]
+                    print(f'{i=}, {res=}')
+                    fun(*(i, self.len_df))
+                    df2.loc[len(df2), :] = res
+        df2.to_excel(self.output)
+        return self.output
