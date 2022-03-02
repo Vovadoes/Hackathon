@@ -40,12 +40,23 @@ class Example(QWidget):
 
     def __init__(self):
         super().__init__()
+        self.mywindow = None
+        self.k = None
+        self.text = None
+        self.status = None
+        self.textt = None
+        self.hh = None
+        self.jhj = None
+        self.check = None
+        self.my_dict = None
+        self.btn = None
+        self.gg = None
         default_db()
         self.initUI()
 
     def initUI(self):
         self.setGeometry(300, 300, 300, 300)
-        self.setWindowTitle('Хаккатон задание')
+        self.setWindowTitle('Хакатон задание')
 
         self.btn = QPushButton('Показать карту', self)
         self.btn.resize(200, 40)

@@ -4,8 +4,6 @@ import pymorphy2
 from CoordinatesAddress import find_coordinates
 from settings import main_lst
 
-from Create_db import start
-
 
 def fun(d, s):
     res = []
