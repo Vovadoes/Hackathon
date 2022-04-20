@@ -36,7 +36,7 @@ parso==0.8.2
 pathy==0.6.1
 pefile==2021.9.3
 pickleshare==0.7.5
-Pillow==9.0.0
+Pillow==9.0.1
 preshed==3.0.6
 prompt-toolkit==3.0.22
 pydantic==1.8.2
